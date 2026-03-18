@@ -1,0 +1,2382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bar Christina — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* ── BRAND TOKENS ── */
+  --ink:        #0c0a07;
+  --warm-dark:  #131009;
+  --mid:        #1e1a12;
+  --parchment:  #e8e0d0;
+  --gold:       #c9a84c;
+  --gold-dim:   rgba(201,168,76,0.25);
+  --gold-line:  rgba(201,168,76,0.12);
+  --gold-glow:  rgba(201,168,76,0.08);
+  --text-muted: rgba(232,224,208,0.55);
+  --text-dim:   rgba(232,224,208,0.30);
+
+  /* ── TYPOGRAPHY ── */
+  --serif: 'Bodoni Moda', Georgia, serif;
+  --sans:  'Jost', sans-serif;
+
+  /* ── SPACING SCALE ── */
+  --sp-xs:  8px;
+  --sp-sm:  16px;
+  --sp-md:  28px;
+  --sp-lg:  48px;
+  --sp-xl:  80px;
+  --sp-2xl: 120px;
+  --sp-3xl: 140px;
+
+  /* ── MOTION ── */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 0.2s;
+  --dur-mid:  0.4s;
+  --dur-slow: 0.9s;
+}
+
+/* ── DOC SHELL ── */
+body {
+  background: #0f0d0a;
+  color: var(--parchment);
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.doc-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  background: var(--ink);
+  border-right: 1px solid var(--gold-line);
+  padding: 40px 0;
+  scrollbar-width: none;
+}
+.sidebar::-webkit-scrollbar { display: none; }
+
+.sidebar-brand {
+  padding: 0 32px 32px;
+  border-bottom: 1px solid var(--gold-line);
+  margin-bottom: 28px;
+}
+.sidebar-brand-name {
+  font-family: var(--serif);
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--parchment);
+  display: block;
+  margin-bottom: 4px;
+}
+.sidebar-brand-sub {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.6;
+}
+
+.nav-group { margin-bottom: 24px; }
+.nav-group-label {
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.4);
+  padding: 0 32px;
+  margin-bottom: 6px;
+  display: block;
+}
+.nav-group a {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 7px 32px;
+  transition: color var(--dur-fast), background var(--dur-fast);
+  border-left: 2px solid transparent;
+}
+.nav-group a:hover {
+  color: var(--parchment);
+  background: rgba(201,168,76,0.04);
+  border-left-color: var(--gold-dim);
+}
+.nav-group a.active {
+  color: var(--gold);
+  border-left-color: var(--gold);
+  background: rgba(201,168,76,0.06);
+}
+
+/* ── MAIN ── */
+.main {
+  padding: 64px 80px;
+  max-width: 1000px;
+}
+
+/* ── SECTION STRUCTURE ── */
+.ds-section {
+  margin-bottom: 96px;
+  padding-bottom: 96px;
+  border-bottom: 1px solid var(--gold-line);
+}
+.ds-section:last-child { border-bottom: none; }
+
+.section-eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.65;
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--parchment);
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+.section-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.85;
+  max-width: 620px;
+  margin-bottom: 48px;
+}
+
+/* ── TOKEN LABEL ── */
+.token-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--gold-line);
+}
+
+/* ── COLOR SWATCHES ── */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.swatch {
+  border: 1px solid var(--gold-line);
+  overflow: hidden;
+}
+.swatch-color {
+  height: 80px;
+  position: relative;
+}
+.swatch-info {
+  padding: 12px 14px;
+  background: var(--warm-dark);
+}
+.swatch-name {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--parchment);
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+  font-family: var(--sans);
+}
+.swatch-var {
+  font-size: 10px;
+  color: var(--gold);
+  opacity: 0.7;
+  font-family: monospace;
+  letter-spacing: 0.03em;
+  display: block;
+  margin-bottom: 2px;
+}
+.swatch-hex {
+  font-size: 10px;
+  color: var(--text-dim);
+  font-family: monospace;
+}
+
+/* ── OPACITY STRIP ── */
+.opacity-strip {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  margin-bottom: 40px;
+}
+.opacity-swatch {
+  text-align: center;
+}
+.opacity-block {
+  height: 40px;
+  border: 1px solid rgba(255,255,255,0.05);
+  margin-bottom: 6px;
+}
+.opacity-label {
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+}
+
+/* ── TYPOGRAPHY SPECIMENS ── */
+.type-specimen {
+  margin-bottom: 40px;
+  padding: 36px 40px;
+  background: var(--warm-dark);
+  border: 1px solid var(--gold-line);
+  position: relative;
+}
+.type-meta {
+  position: absolute;
+  top: 14px; right: 18px;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-align: right;
+  line-height: 1.8;
+  font-family: monospace;
+}
+.type-tag {
+  display: inline-block;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.5;
+  margin-bottom: 12px;
+  font-family: var(--sans);
+}
+
+.t-display {
+  font-family: var(--serif);
+  font-size: clamp(56px, 8vw, 96px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  color: var(--parchment);
+}
+.t-h1 {
+  font-family: var(--serif);
+  font-size: clamp(36px, 4.5vw, 56px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.1;
+  color: var(--parchment);
+}
+.t-h2 {
+  font-family: var(--serif);
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.15;
+  color: var(--parchment);
+}
+.t-h3 {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--parchment);
+}
+.t-label {
+  font-family: var(--sans);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.t-label::after {
+  content: '';
+  display: block;
+  width: 36px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.45;
+}
+.t-body {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.85;
+  color: var(--text-muted);
+}
+.t-small {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+}
+.t-price {
+  font-family: var(--serif);
+  font-size: 44px;
+  font-weight: 400;
+  color: var(--parchment);
+}
+.t-stat {
+  font-family: var(--serif);
+  font-size: 52px;
+  font-weight: 400;
+  color: var(--gold);
+  line-height: 1;
+}
+.t-quote {
+  font-family: var(--serif);
+  font-size: clamp(20px, 2.5vw, 26px);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--parchment);
+}
+.t-nav {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.t-marquee {
+  font-family: var(--sans);
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(232,224,208,0.45);
+}
+
+/* ── SPACING SCALE ── */
+.spacing-scale { margin-bottom: 40px; }
+.spacing-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(201,168,76,0.05);
+}
+.spacing-bar-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.spacing-bar {
+  height: 6px;
+  background: var(--gold);
+  opacity: 0.4;
+  border-radius: 1px;
+}
+.spacing-name {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  min-width: 60px;
+  font-family: monospace;
+}
+.spacing-val {
+  font-size: 11px;
+  color: var(--gold);
+  opacity: 0.6;
+  min-width: 50px;
+  font-family: monospace;
+}
+
+/* ── BUTTONS ── */
+.component-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  padding: 32px 36px;
+  background: var(--warm-dark);
+  border: 1px solid var(--gold-line);
+  margin-bottom: 20px;
+}
+.component-row.dark-bg { background: var(--ink); }
+
+.btn-outline {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--parchment);
+  background: none;
+  border: 1px solid rgba(232,224,208,0.35);
+  padding: 14px 36px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: border-color 0.3s, color 0.3s;
+}
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+.btn-gold {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 14px 36px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: opacity 0.3s;
+}
+.btn-gold:hover { opacity: 0.82; }
+
+.btn-ghost {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: none;
+  border: none;
+  padding: 14px 0;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  border-bottom: 1px solid rgba(201,168,76,0.35);
+  transition: border-color 0.3s;
+}
+.btn-ghost:hover { border-color: var(--gold); }
+
+/* ── NAV COMPONENT ── */
+.nav-demo {
+  background: rgba(12,10,7,0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--gold-line);
+  padding: 18px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.nav-demo-logo {
+  font-family: var(--serif);
+  font-size: 13px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--parchment);
+}
+.nav-demo-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+.nav-demo-links li a {
+  font-size: 10px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(232,224,208,0.65);
+  text-decoration: none;
+}
+
+/* ── SECTION LABEL COMPONENT ── */
+.section-label-demo {
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.section-label-demo::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.5;
+}
+
+/* ── CARD COMPONENTS ── */
+.offer-card-demo {
+  background: var(--warm-dark);
+  border: 1px solid var(--gold-line);
+  padding: 44px 36px;
+  transition: background 0.3s;
+}
+.offer-card-demo:hover { background: #1a160e; }
+
+.offer-num-demo {
+  font-family: var(--serif);
+  font-size: 56px;
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(201,168,76,0.12);
+  line-height: 1;
+  margin-bottom: 20px;
+}
+.offer-card-title-demo {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--parchment);
+  margin-bottom: 12px;
+}
+.offer-card-body-demo {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+/* ── STAT COMPONENT ── */
+.stat-row-demo {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(201,168,76,0.08);
+}
+.stat-num-demo {
+  font-family: var(--serif);
+  font-size: 48px;
+  font-weight: 400;
+  color: var(--gold);
+  line-height: 1;
+  min-width: 76px;
+}
+.stat-label-demo {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ── QUOTE COMPONENT ── */
+.quote-demo {
+  padding: 40px 0;
+  border-bottom: 1px solid var(--gold-line);
+  max-width: 540px;
+}
+.quote-mark-demo {
+  font-family: var(--serif);
+  font-size: 56px;
+  color: var(--gold);
+  line-height: 0.5;
+  margin-bottom: 16px;
+  opacity: 0.35;
+}
+.quote-text-demo {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--parchment);
+  margin-bottom: 16px;
+}
+.quote-attr-demo {
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.6;
+}
+
+/* ── HOURS COMPONENT ── */
+.hours-demo {
+  border: 1px solid var(--gold-line);
+  background: var(--warm-dark);
+  padding: 40px;
+}
+.hours-note-demo {
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(201,168,76,0.08);
+}
+.hours-row-demo {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(201,168,76,0.06);
+}
+.hours-row-demo .day-demo { color: var(--text-dim); font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; }
+.hours-row-demo .time-demo { color: var(--parchment); }
+
+/* ── PRICING TIERS ── */
+.tiers-demo {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.1);
+  margin-bottom: 16px;
+}
+.tier-demo {
+  background: #0f0d09;
+  padding: 24px 20px;
+  text-align: center;
+}
+.tier-demo.featured {
+  background: #131009;
+  border-left: 1px solid rgba(201,168,76,0.15);
+  border-right: 1px solid rgba(201,168,76,0.15);
+}
+.tier-dur-demo {
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 10px;
+}
+.tier-dur-demo.gold { color: var(--gold); }
+.tier-price-demo {
+  font-family: var(--serif);
+  font-size: 34px;
+  color: var(--parchment);
+  line-height: 1;
+}
+.tier-price-demo.gold { color: var(--gold); }
+.tier-price-demo sup { font-size: 14px; vertical-align: top; margin-top: 6px; display: inline-block; }
+.tier-pp-demo {
+  font-size: 9px;
+  color: var(--text-dim);
+  letter-spacing: 0.15em;
+  margin-top: 6px;
+}
+
+/* ── MENU COMPONENT ── */
+.menu-category-demo {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-style: italic;
+  color: var(--parchment);
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+}
+.menu-item-demo {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 8px 0;
+  font-size: 13px;
+  color: var(--text-muted);
+  border-bottom: 1px solid rgba(201,168,76,0.04);
+}
+.menu-price-demo { color: var(--gold); font-size: 11px; letter-spacing: 0.1em; }
+
+/* ── MARQUEE ── */
+.marquee-demo {
+  overflow: hidden;
+  border: 1px solid var(--gold-line);
+  border-left: none;
+  border-right: none;
+  padding: 12px 0;
+  background: rgba(12,10,7,0.7);
+  margin-bottom: 20px;
+}
+.marquee-inner {
+  display: flex;
+  white-space: nowrap;
+  animation: marquee-demo 20s linear infinite;
+}
+.marquee-inner span {
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(232,224,208,0.4);
+  padding-right: 60px;
+}
+.marquee-inner span .sep { color: var(--gold); margin: 0 16px; }
+@keyframes marquee-demo {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── CONTACT SECTION ── */
+.contact-demo {
+  background: var(--warm-dark);
+  border: 1px solid var(--gold-line);
+  padding: 40px;
+}
+.contact-block-demo {
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(201,168,76,0.07);
+}
+.contact-block-demo:first-child { padding-top: 0; }
+.contact-block-label-demo {
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.45);
+  margin-bottom: 8px;
+}
+.contact-block-value-demo {
+  font-size: 14px;
+  color: rgba(232,224,208,0.7);
+  line-height: 1.7;
+}
+
+/* ── MOTION REFERENCE ── */
+.motion-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.motion-card {
+  background: var(--warm-dark);
+  border: 1px solid var(--gold-line);
+  padding: 28px 32px;
+}
+.motion-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--parchment);
+  margin-bottom: 8px;
+  font-family: var(--sans);
+}
+.motion-val {
+  font-size: 11px;
+  color: var(--gold);
+  opacity: 0.65;
+  font-family: monospace;
+  margin-bottom: 10px;
+}
+.motion-desc {
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+/* ── ANIMATION DEMO ── */
+.anim-demo-box {
+  background: var(--warm-dark);
+  border: 1px solid var(--gold-line);
+  padding: 32px;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.fade-up-demo {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+  background: rgba(201,168,76,0.08);
+  border: 1px solid var(--gold-line);
+  padding: 16px 24px;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.fade-up-demo.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fade-up-demo.d1 { transition-delay: 0.1s; }
+.fade-up-demo.d2 { transition-delay: 0.25s; }
+.fade-up-demo.d3 { transition-delay: 0.4s; }
+
+/* ── BORDER STYLES ── */
+.border-demo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.border-demo-item {
+  padding: 20px 24px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+}
+
+/* ── CODE BLOCKS ── */
+pre {
+  background: #080706;
+  border: 1px solid rgba(201,168,76,0.08);
+  border-left: 2px solid rgba(201,168,76,0.3);
+  padding: 24px 28px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.8;
+  color: rgba(232,224,208,0.6);
+  overflow-x: auto;
+  margin-bottom: 32px;
+  white-space: pre;
+}
+code {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  color: var(--gold);
+  background: rgba(201,168,76,0.08);
+  padding: 2px 6px;
+  letter-spacing: 0.02em;
+}
+
+/* ── GRID LINES ── */
+.gold-rule {
+  width: 48px;
+  height: 1px;
+  background: var(--gold);
+  margin: 20px 0;
+}
+.full-rule {
+  width: 100%;
+  height: 1px;
+  background: var(--gold-line);
+  margin: 40px 0;
+}
+
+/* ── LAYOUT DIAGRAM ── */
+.layout-diagram {
+  background: var(--warm-dark);
+  border: 1px solid var(--gold-line);
+  padding: 40px;
+  margin-bottom: 32px;
+}
+.layout-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 8px;
+  align-items: stretch;
+}
+.layout-block {
+  border: 1px dashed rgba(201,168,76,0.2);
+  padding: 14px 16px;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1.5;
+}
+.layout-block.bg-accent {
+  background: rgba(201,168,76,0.04);
+  border-color: rgba(201,168,76,0.3);
+  color: rgba(201,168,76,0.7);
+}
+
+/* ── ICON SYSTEM ── */
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.icon-item {
+  background: var(--warm-dark);
+  border: 1px solid var(--gold-line);
+  padding: 20px 16px;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.icon-symbol {
+  font-family: var(--serif);
+  font-size: 24px;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 10px;
+  opacity: 0.6;
+}
+
+/* ── HERO SECTION DIAGRAM ── */
+.hero-diagram {
+  position: relative;
+  height: 320px;
+  background: radial-gradient(ellipse at 40% 50%, #2a1f0a 0%, #0c0a07 70%);
+  border: 1px solid var(--gold-line);
+  overflow: hidden;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+.hero-diagram::before {
+  content: '';
+  position: absolute;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
+  animation: glow-pulse-doc 5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes glow-pulse-doc {
+  0%,100% { opacity: 0.5; transform: scale(1); }
+  50%      { opacity: 1; transform: scale(1.05); }
+}
+.hero-diagram-eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  position: relative;
+  z-index: 1;
+}
+.hero-diagram-title {
+  font-family: var(--serif);
+  font-size: 52px;
+  font-style: italic;
+  color: var(--parchment);
+  line-height: 0.95;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.hero-diagram-sub {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(232,224,208,0.4);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── TOOLTIP / ANNOTATION ── */
+.annotation {
+  display: inline-block;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--gold);
+  padding: 3px 8px;
+  margin: 4px;
+  opacity: 0.75;
+}
+
+/* ── RESPONSIVE NOTE ── */
+.responsive-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 32px;
+  font-size: 13px;
+}
+.responsive-table th {
+  text-align: left;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.6;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--gold-line);
+  font-weight: 400;
+}
+.responsive-table td {
+  padding: 10px 16px;
+  border-bottom: 1px solid rgba(201,168,76,0.05);
+  color: var(--text-muted);
+  vertical-align: top;
+  line-height: 1.7;
+}
+.responsive-table td:first-child { color: var(--parchment); font-family: monospace; font-size: 11px; }
+.responsive-table td code { font-size: 10px; }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  margin-bottom: 80px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--gold-line);
+}
+.page-header-eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.6;
+  margin-bottom: 16px;
+}
+.page-header-title {
+  font-family: var(--serif);
+  font-size: 52px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--parchment);
+  line-height: 1;
+  margin-bottom: 20px;
+}
+.page-header-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  max-width: 560px;
+  line-height: 1.85;
+}
+.version-pill {
+  display: inline-block;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(201,168,76,0.25);
+  padding: 4px 12px;
+  margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+<div class="doc-layout">
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <span class="sidebar-brand-name">Bar Christina</span>
+    <span class="sidebar-brand-sub">Design System v1.0</span>
+  </div>
+
+  <nav>
+    <div class="nav-group">
+      <span class="nav-group-label">Foundation</span>
+      <a href="#tokens" class="active">Design Tokens</a>
+      <a href="#colors">Colour</a>
+      <a href="#typography">Typography</a>
+      <a href="#spacing">Spacing</a>
+      <a href="#borders">Borders & Rules</a>
+    </div>
+    <div class="nav-group">
+      <span class="nav-group-label">Motion</span>
+      <a href="#motion">Timing & Easing</a>
+      <a href="#animations">Animations</a>
+      <a href="#effects">Atmospheric Effects</a>
+    </div>
+    <div class="nav-group">
+      <span class="nav-group-label">Components</span>
+      <a href="#navigation">Navigation</a>
+      <a href="#buttons">Buttons</a>
+      <a href="#labels">Section Labels</a>
+      <a href="#cards">Offer Cards</a>
+      <a href="#stats">Stat Blocks</a>
+      <a href="#quotes">Testimonial Quotes</a>
+      <a href="#hours">Hours & Contact</a>
+      <a href="#pricing">Pricing Tiers</a>
+      <a href="#menu">Menu Items</a>
+      <a href="#marquee">Marquee Ticker</a>
+    </div>
+    <div class="nav-group">
+      <span class="nav-group-label">Layout</span>
+      <a href="#layout">Page Structure</a>
+      <a href="#sections">Section Patterns</a>
+      <a href="#grid">Grid System</a>
+    </div>
+    <div class="nav-group">
+      <span class="nav-group-label">Reference</span>
+      <a href="#icons">Decorative Elements</a>
+      <a href="#implementation">Implementation Guide</a>
+    </div>
+  </nav>
+</aside>
+
+<!-- ── MAIN CONTENT ── -->
+<main class="main">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <p class="page-header-eyebrow">Design System Documentation</p>
+    <h1 class="page-header-title">Bar Christina</h1>
+    <p class="page-header-desc">A complete reference for colours, typography, spacing, components, motion, and layout patterns. Framework-agnostic — apply to React, Vue, Webflow, Squarespace, Framer, or any custom build.</p>
+    <div class="version-pill">Version 1.0 · 2025</div>
+  </div>
+
+  <!-- ── DESIGN TOKENS ── -->
+  <section class="ds-section" id="tokens">
+    <p class="section-eyebrow">Foundation</p>
+    <h2 class="section-title">Design Tokens</h2>
+    <p class="section-desc">All design decisions are expressed as named tokens. Reference these in CSS custom properties, Tailwind config, or your framework's theme object. Never hard-code raw hex values.</p>
+
+    <div class="token-label">CSS Custom Properties (Root)</div>
+<pre>:root {
+  /* Backgrounds */
+  --ink:        #0c0a07;   /* Primary background — deepest layer */
+  --warm-dark:  #131009;   /* Secondary background — alternate sections */
+  --mid:        #1e1a12;   /* Tertiary — cards on warm-dark */
+
+  /* Text */
+  --parchment:  #e8e0d0;   /* Primary text */
+  --text-muted: rgba(232,224,208,0.55);  /* Body / secondary text */
+  --text-dim:   rgba(232,224,208,0.30);  /* Labels, metadata */
+
+  /* Accent */
+  --gold:       #c9a84c;   /* Primary accent — use sparingly */
+  --gold-dim:   rgba(201,168,76,0.25);   /* Hover states, fills */
+  --gold-line:  rgba(201,168,76,0.12);   /* Borders, dividers */
+  --gold-glow:  rgba(201,168,76,0.08);   /* Subtle backgrounds */
+
+  /* Typography */
+  --serif: 'Bodoni Moda', Georgia, serif;
+  --sans:  'Jost', sans-serif;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 0.2s;
+  --dur-mid:  0.4s;
+  --dur-slow: 0.9s;
+}</pre>
+
+    <div class="token-label">Tailwind / JS Theme Object</div>
+<pre>// tailwind.config.js  |  theme tokens
+colors: {
+  ink:       '#0c0a07',
+  'warm-dark':'#131009',
+  mid:       '#1e1a12',
+  parchment: '#e8e0d0',
+  gold:      '#c9a84c',
+},
+fontFamily: {
+  serif: ['"Bodoni Moda"', 'Georgia', 'serif'],
+  sans:  ['Jost', 'sans-serif'],
+}</pre>
+  </section>
+
+  <!-- ── COLOUR ── -->
+  <section class="ds-section" id="colors">
+    <p class="section-eyebrow">Foundation</p>
+    <h2 class="section-title">Colour</h2>
+    <p class="section-desc">The palette is built on a single warm-black base, a parchment text colour, and one gold accent. The discipline of using only these three families is what creates the refined, cohesive feel.</p>
+
+    <div class="token-label">Core Palette</div>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#0c0a07"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Ink</p>
+          <code class="swatch-var">--ink</code>
+          <span class="swatch-hex">#0c0a07</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#131009"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Warm Dark</p>
+          <code class="swatch-var">--warm-dark</code>
+          <span class="swatch-hex">#131009</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#1e1a12"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Mid</p>
+          <code class="swatch-var">--mid</code>
+          <span class="swatch-hex">#1e1a12</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#e8e0d0"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Parchment</p>
+          <code class="swatch-var">--parchment</code>
+          <span class="swatch-hex">#e8e0d0</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#c9a84c"></div>
+        <div class="swatch-info">
+          <p class="swatch-name">Gold</p>
+          <code class="swatch-var">--gold</code>
+          <span class="swatch-hex">#c9a84c</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="token-label">Gold Opacity Scale — use these for borders, fills, hover states</div>
+    <div class="opacity-strip">
+      <div class="opacity-swatch">
+        <div class="opacity-block" style="background:rgba(201,168,76,0.04)"></div>
+        <p class="opacity-label">4% — glow</p>
+      </div>
+      <div class="opacity-swatch">
+        <div class="opacity-block" style="background:rgba(201,168,76,0.08)"></div>
+        <p class="opacity-label">8% — bg hint</p>
+      </div>
+      <div class="opacity-swatch">
+        <div class="opacity-block" style="background:rgba(201,168,76,0.12)"></div>
+        <p class="opacity-label">12% — borders</p>
+      </div>
+      <div class="opacity-swatch">
+        <div class="opacity-block" style="background:rgba(201,168,76,0.25)"></div>
+        <p class="opacity-label">25% — dim</p>
+      </div>
+      <div class="opacity-swatch">
+        <div class="opacity-block" style="background:rgba(201,168,76,0.5)"></div>
+        <p class="opacity-label">50% — rules</p>
+      </div>
+      <div class="opacity-swatch">
+        <div class="opacity-block" style="background:rgba(201,168,76,1)"></div>
+        <p class="opacity-label">100% — full</p>
+      </div>
+    </div>
+
+    <div class="token-label">Parchment Opacity Scale — for text hierarchy</div>
+    <div class="opacity-strip">
+      <div class="opacity-swatch">
+        <div class="opacity-block" style="background:rgba(232,224,208,0.20)"></div>
+        <p class="opacity-label">20% — faint</p>
+      </div>
+      <div class="opacity-swatch">
+        <div class="opacity-block" style="background:rgba(232,224,208,0.30)"></div>
+        <p class="opacity-label">30% — dim</p>
+      </div>
+      <div class="opacity-swatch">
+        <div class="opacity-block" style="background:rgba(232,224,208,0.45)"></div>
+        <p class="opacity-label">45% — marquee</p>
+      </div>
+      <div class="opacity-swatch">
+        <div class="opacity-block" style="background:rgba(232,224,208,0.55)"></div>
+        <p class="opacity-label">55% — body</p>
+      </div>
+      <div class="opacity-swatch">
+        <div class="opacity-block" style="background:rgba(232,224,208,0.65)"></div>
+        <p class="opacity-label">65% — nav links</p>
+      </div>
+      <div class="opacity-swatch">
+        <div class="opacity-block" style="background:rgba(232,224,208,1)"></div>
+        <p class="opacity-label">100% — primary</p>
+      </div>
+    </div>
+
+    <div class="token-label">Usage Rules</div>
+    <table class="responsive-table">
+      <tr><th>Use</th><th>Token</th><th>Example</th></tr>
+      <tr><td>Page background</td><td><code>--ink</code></td><td>body background</td></tr>
+      <tr><td>Alternate sections</td><td><code>--warm-dark</code></td><td>Offer, Events, Find Us</td></tr>
+      <tr><td>Card backgrounds</td><td><code>--warm-dark</code> or <code>--mid</code></td><td>Offer cards, hours panel</td></tr>
+      <tr><td>Primary text</td><td><code>--parchment</code></td><td>Headings, CTA labels</td></tr>
+      <tr><td>Body text</td><td><code>--text-muted</code> (55%)</td><td>Paragraphs, card descriptions</td></tr>
+      <tr><td>Labels / meta</td><td><code>--text-dim</code> (30%)</td><td>Day labels, fine print</td></tr>
+      <tr><td>Accent — full</td><td><code>--gold</code></td><td>Section labels, stat numbers, prices</td></tr>
+      <tr><td>Borders / dividers</td><td><code>--gold-line</code> (12%)</td><td>Card borders, section dividers</td></tr>
+      <tr><td>Subtle fills</td><td><code>--gold-glow</code> (8%)</td><td>Hover backgrounds, nav active state</td></tr>
+      <tr><td>Ghost numerals</td><td>gold at 12%</td><td>Card number decoration (01, 02, 03)</td></tr>
+    </table>
+  </section>
+
+  <!-- ── TYPOGRAPHY ── -->
+  <section class="ds-section" id="typography">
+    <p class="section-eyebrow">Foundation</p>
+    <h2 class="section-title">Typography</h2>
+    <p class="section-desc">Two fonts only. Bodoni Moda (serif) for all display, headings, and italic editorial moments. Jost (sans-serif) at weight 300 for all body copy, labels, and UI text. Never mix roles.</p>
+
+    <div class="token-label">Google Fonts Import</div>
+<pre>&lt;link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&amp;family=Jost:wght@300;400&amp;display=swap" rel="stylesheet"&gt;</pre>
+
+    <div class="token-label">Type Scale — Live Specimens</div>
+
+    <div class="type-specimen">
+      <div class="type-meta">Bodoni Moda Italic 400<br>clamp(56px, 9vw, 120px)<br>line-height: 0.95<br>letter-spacing: −0.01em</div>
+      <span class="type-tag">Display / Hero Title</span>
+      <div class="t-display">Bar Christina</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-meta">Bodoni Moda Italic 400<br>clamp(36px, 4.5vw, 56px)<br>line-height: 1.1</div>
+      <span class="type-tag">H1 / Section Hero</span>
+      <div class="t-h1">Made for this neighbourhood.</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-meta">Bodoni Moda Italic 400<br>clamp(28px, 3vw, 40px)<br>line-height: 1.15</div>
+      <span class="type-tag">H2 / Sub-Section Title</span>
+      <div class="t-h2">Your Occasion, Our Stage.</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-meta">Bodoni Moda 400 (upright)<br>24px · line-height: 1.2</div>
+      <span class="type-tag">H3 / Card Title</span>
+      <div class="t-h3">The Drinks</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-meta">Bodoni Moda Italic 400<br>clamp(20px, 2.5vw, 26px)<br>line-height: 1.4</div>
+      <span class="type-tag">Pull Quote</span>
+      <div class="t-quote">"Hidden in plain sight — a simple formula that works brilliantly."</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-meta">Bodoni Moda 400<br>52px · color: --gold</div>
+      <span class="type-tag">Stat Number</span>
+      <div class="t-stat">50</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-meta">Bodoni Moda 400<br>44px</div>
+      <span class="type-tag">Price Display</span>
+      <div class="t-price"><sup style="font-size:20px;vertical-align:top;margin-top:10px;display:inline-block">$</sup>65</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-meta">Jost 400<br>9px · tracking: 0.35em<br>uppercase · color: --gold<br>+ 40px gold rule after</div>
+      <span class="type-tag">Section Label</span>
+      <div class="t-label">Our Story</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-meta">Jost 400<br>11px · tracking: 0.26em<br>uppercase · opacity 65%</div>
+      <span class="type-tag">Navigation Link</span>
+      <div class="t-nav">Reservations</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-meta">Jost 300<br>15px · weight 300<br>line-height: 1.85<br>color: --text-muted</div>
+      <span class="type-tag">Body Copy</span>
+      <div class="t-body">Bar Christina is exactly what Kew East needed — a beautiful, welcoming space that feels intimate and familiar from the moment you walk in. Born from a genuine love of community, great wine, and the pleasure of a well-made cocktail.</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-meta">Jost 300 · 10px<br>tracking: 0.28em<br>uppercase · opacity 45%</div>
+      <span class="type-tag">Marquee / Ticker Text</span>
+      <div class="t-marquee">663 High Street <span style="color:var(--gold);margin:0 12px">◆</span> Kew East, Melbourne</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-meta">Jost 300 · 12px<br>color: --text-dim</div>
+      <span class="type-tag">Fine Print / Meta</span>
+      <div class="t-small">Dedicated waiter included · 5% service charge applies · Minimum spend on full venue hire</div>
+    </div>
+
+    <div class="token-label">Typography Rules</div>
+<pre>/* Serif = Bodoni Moda — always italic for headings */
+/* Exception: card titles (H3) are upright Bodoni */
+
+/* Key italic contexts: */
+- Hero title
+- Section hero headlines (H1, H2)
+- Pull quotes
+- Section "offer" titles
+- Events headline
+- Menu category headers
+
+/* Upright Bodoni contexts: */
+- Card titles (H3)
+- Stat numbers / prices
+
+/* Jost contexts (everything UI): */
+- Navigation links
+- Section labels (uppercase tracked)
+- Body copy (weight 300)
+- Buttons
+- Price suffixes / fine print
+- Marquee text</pre>
+  </section>
+
+  <!-- ── SPACING ── -->
+  <section class="ds-section" id="spacing">
+    <p class="section-eyebrow">Foundation</p>
+    <h2 class="section-title">Spacing</h2>
+    <p class="section-desc">Generous, intentional whitespace is central to the luxury feel. The scale below maps the site's actual padding and gap values — reference these for any new section or component.</p>
+
+    <div class="token-label">Spacing Scale</div>
+    <div class="spacing-scale">
+      <div class="spacing-row"><span class="spacing-name">--sp-xs</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:8px"></div></div><span class="spacing-val">8px</span><span style="font-size:11px;color:var(--text-dim)">Icon gaps, inner padding</span></div>
+      <div class="spacing-row"><span class="spacing-name">--sp-sm</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:16px"></div></div><span class="spacing-val">16px</span><span style="font-size:11px;color:var(--text-dim)">Tight gap, card inner gap</span></div>
+      <div class="spacing-row"><span class="spacing-name">--sp-md</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:28px"></div></div><span class="spacing-val">28px</span><span style="font-size:11px;color:var(--text-dim)">Section label → title gap</span></div>
+      <div class="spacing-row"><span class="spacing-name">--sp-lg</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:48px"></div></div><span class="spacing-val">48px</span><span style="font-size:11px;color:var(--text-dim)">Title → body gap</span></div>
+      <div class="spacing-row"><span class="spacing-name">--sp-xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:80px"></div></div><span class="spacing-val">80px</span><span style="font-size:11px;color:var(--text-dim)">Grid column gap</span></div>
+      <div class="spacing-row"><span class="spacing-name">--sp-2xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:120px"></div></div><span class="spacing-val">120px</span><span style="font-size:11px;color:var(--text-dim)">Alternate section padding</span></div>
+      <div class="spacing-row"><span class="spacing-name">--sp-3xl</span><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:140px"></div></div><span class="spacing-val">140px</span><span style="font-size:11px;color:var(--text-dim)">Primary section padding</span></div>
+    </div>
+
+    <div class="token-label">Section Padding Reference</div>
+    <table class="responsive-table">
+      <tr><th>Section</th><th>Padding</th><th>Notes</th></tr>
+      <tr><td>About</td><td><code>140px 0</code></td><td>Top and bottom, full bleed horizontally, inner max-width 1300px</td></tr>
+      <tr><td>Offer</td><td><code>120px 0</code></td><td>Alternate section background</td></tr>
+      <tr><td>Reservations</td><td><code>140px 60px</code></td><td>Horizontal padding on inner container</td></tr>
+      <tr><td>Events</td><td><code>120px 0</code></td><td>Alternate background, inner container padded</td></tr>
+      <tr><td>Testimonials</td><td><code>140px 60px</code></td><td>Max-width 1300px</td></tr>
+      <tr><td>Find Us</td><td><code>120px 0</code></td><td>Alternate background</td></tr>
+      <tr><td>Nav (default)</td><td><code>28px 60px</code></td><td>Reduces to 18px top/bottom on scroll</td></tr>
+      <tr><td>Footer</td><td><code>32px 60px</code></td><td>Single row, minimal height</td></tr>
+      <tr><td>Max content width</td><td><code>1300px</code></td><td>All inner containers, centred</td></tr>
+    </table>
+  </section>
+
+  <!-- ── BORDERS ── -->
+  <section class="ds-section" id="borders">
+    <p class="section-eyebrow">Foundation</p>
+    <h2 class="section-title">Borders &amp; Rules</h2>
+    <p class="section-desc">Borders are always 1px, always gold-tinted. They serve as architectural elements — dividers, frames, and structural lines. Never use box-shadows.</p>
+
+    <div class="token-label">Border Styles</div>
+    <div class="border-demo-grid">
+      <div class="border-demo-item" style="border:1px solid rgba(201,168,76,0.12)">
+        <code style="display:block;margin-bottom:6px">--gold-line</code>
+        Card borders, section frames
+      </div>
+      <div class="border-demo-item" style="border:1px solid rgba(201,168,76,0.25)">
+        <code style="display:block;margin-bottom:6px">gold-dim border</code>
+        Hover/active borders
+      </div>
+      <div class="border-demo-item" style="border:1px solid rgba(201,168,76,0.5)">
+        <code style="display:block;margin-bottom:6px">gold 50% opacity</code>
+        Decorative rule lines
+      </div>
+      <div class="border-demo-item" style="border-bottom:1px solid rgba(201,168,76,0.08)">
+        <code style="display:block;margin-bottom:6px">gold 8% bottom</code>
+        Row dividers in lists
+      </div>
+      <div class="border-demo-item" style="border-left:2px solid rgba(201,168,76,0.35)">
+        <code style="display:block;margin-bottom:6px">gold 35% left 2px</code>
+        Code blocks, accents
+      </div>
+      <div class="border-demo-item" style="border:1px solid rgba(201,168,76,0.15);border-left:none;border-right:none">
+        <code style="display:block;margin-bottom:6px">top+bottom only</code>
+        Section separators, marquee
+      </div>
+    </div>
+
+    <div class="token-label">Gold Rule Element — used before section titles</div>
+<pre>/* 48px gold horizontal rule, sits above section headings */
+.gold-rule {
+  width: 48px;
+  height: 1px;
+  background: var(--gold);
+  margin-bottom: 28px;
+}</pre>
+
+    <div class="gold-rule"></div>
+    <p style="font-size:12px;color:var(--text-dim);margin-top:8px">↑ Live example of the gold rule</p>
+  </section>
+
+  <!-- ── MOTION ── -->
+  <section class="ds-section" id="motion">
+    <p class="section-eyebrow">Motion</p>
+    <h2 class="section-title">Timing &amp; Easing</h2>
+    <p class="section-desc">All motion uses a single easing curve — a fast-out-slow-in that feels organic and unhurried. Transitions are either instant micro-interactions (0.2s) or cinematic slow reveals (0.9s). Nothing in between should be animated.</p>
+
+    <div class="motion-grid">
+      <div class="motion-card">
+        <p class="motion-name">Primary Easing</p>
+        <p class="motion-val">cubic-bezier(0.16, 1, 0.3, 1)</p>
+        <p class="motion-desc">Used for all scroll reveals and entrance animations. Fast deceleration — content arrives, then settles.</p>
+      </div>
+      <div class="motion-card">
+        <p class="motion-name">Micro Transition</p>
+        <p class="motion-val">0.2s ease</p>
+        <p class="motion-desc">Hover states on links, buttons, and nav items. Fast enough to feel responsive, not jarring.</p>
+      </div>
+      <div class="motion-card">
+        <p class="motion-name">Nav Scroll Transition</p>
+        <p class="motion-val">0.4s ease</p>
+        <p class="motion-desc">Nav background and padding change on scroll. Leisurely enough to feel intentional.</p>
+      </div>
+      <div class="motion-card">
+        <p class="motion-name">Scroll Reveal</p>
+        <p class="motion-val">0.9s cubic-bezier(0.16,1,0.3,1)</p>
+        <p class="motion-desc">opacity 0→1, translateY 30px→0. IntersectionObserver at 12% threshold.</p>
+      </div>
+      <div class="motion-card">
+        <p class="motion-name">Stagger Delays</p>
+        <p class="motion-val">0.1s · 0.2s · 0.35s</p>
+        <p class="motion-desc">Applied to sibling elements in the same reveal group. Creates a cascade, not a simultaneous pop.</p>
+      </div>
+      <div class="motion-card">
+        <p class="motion-name">Glow Pulse Loop</p>
+        <p class="motion-val">5–8s ease-in-out infinite</p>
+        <p class="motion-desc">Atmospheric background elements only. Slow, barely perceptible breathing effect.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ANIMATIONS ── -->
+  <section class="ds-section" id="animations">
+    <p class="section-eyebrow">Motion</p>
+    <h2 class="section-title">Animations</h2>
+    <p class="section-desc">Three animation patterns used across the site. Copy these keyframes and class patterns directly.</p>
+
+    <div class="token-label">1 — Hero Entrance (CSS animation, fires on load)</div>
+<pre>@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Apply with staggered delays: */
+.hero-eyebrow { animation: fade-up 1s ease 0.3s both; }
+.hero-title   { animation: fade-up 1.2s ease 0.5s both; }
+.hero-sub     { animation: fade-up 1s ease 0.8s both; }
+.hero-ctas    { animation: fade-up 1s ease 1.0s both; }
+
+/* Note: use animation-fill-mode: both (shorthand: 'both')
+   so elements start invisible before the delay fires. */</pre>
+
+    <div class="token-label">2 — Scroll Reveal (IntersectionObserver + CSS class toggle)</div>
+<pre>/* CSS */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1),
+              transform 0.9s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible   { opacity: 1; transform: translateY(0); }
+.reveal-delay-1   { transition-delay: 0.1s; }
+.reveal-delay-2   { transition-delay: 0.2s; }
+.reveal-delay-3   { transition-delay: 0.35s; }
+
+/* JS */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target); /* fire once only */
+    }
+  });
+}, { threshold: 0.12 }); /* 12% visibility triggers reveal */
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));</pre>
+
+    <div class="token-label">3 — Atmospheric Glow Pulse (looping background elements)</div>
+<pre>@keyframes glow-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.05); }
+}
+
+/* Used on hero and events background pseudo-elements */
+.hero-bg-orb {
+  animation: glow-pulse 6s ease-in-out infinite;
+}
+.events-bg-orb {
+  animation: glow-pulse 5s ease-in-out infinite;
+}</pre>
+
+    <div class="token-label">4 — Marquee Ticker</div>
+<pre>@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); } /* -50% = moves one copy's width */
+}
+
+/* HTML: duplicate content twice inside .marquee-track so it loops
+   seamlessly. The animation moves exactly one copy's width. */
+.marquee-track {
+  display: flex;
+  white-space: nowrap;
+  animation: marquee 30s linear infinite;
+}</pre>
+
+    <div class="token-label">Live Reveal Demo — click to trigger</div>
+    <div class="anim-demo-box">
+      <div class="fade-up-demo" id="demo1">Element 1</div>
+      <div class="fade-up-demo d1" id="demo2">Element 2</div>
+      <div class="fade-up-demo d2" id="demo3">Element 3</div>
+      <div class="fade-up-demo d3" id="demo4">Element 4</div>
+    </div>
+    <button onclick="triggerDemo()" class="btn-outline" style="font-size:11px">Trigger Reveal Animation</button>
+  </section>
+
+  <!-- ── EFFECTS ── -->
+  <section class="ds-section" id="effects">
+    <p class="section-eyebrow">Motion</p>
+    <h2 class="section-title">Atmospheric Effects</h2>
+    <p class="section-desc">Two global effects applied to the entire page. These are what give the site its analogue warmth and depth — they should be present on every implementation.</p>
+
+    <div class="token-label">1 — Grain / Film Noise Overlay</div>
+<pre>/* Applied as a fixed pseudo-element on body.
+   Creates analogue warmth — like candlelight grain on film. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.035; /* CRITICAL: keep this subtle — 0.03 to 0.04 max */
+  pointer-events: none;
+  z-index: 9998; /* sits above content, below cursor */
+}</pre>
+
+    <div class="token-label">2 — Custom Gold Cursor</div>
+<pre>/* Hide default cursor */
+body { cursor: none; }
+
+/* Gold dot element */
+#cursor {
+  position: fixed;
+  width: 10px; height: 10px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+}
+
+/* JS: follow mouse + scale on interactive elements */
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top  = e.clientY + 'px';
+});
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.width   = '20px';
+    cursor.style.height  = '20px';
+    cursor.style.opacity = '0.5';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.width   = '10px';
+    cursor.style.height  = '10px';
+    cursor.style.opacity = '1';
+  });
+});</pre>
+
+    <div class="token-label">3 — Hero Radial Glow Background</div>
+<pre>/* Applied behind hero image as an overlay.
+   Creates warm candlelight atmosphere. */
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 60%, rgba(201,168,76,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 20%, rgba(180,120,40,0.06) 0%, transparent 50%),
+    linear-gradient(180deg,
+      rgba(12,10,7,0.3) 0%,
+      rgba(12,10,7,0.6) 60%,
+      rgba(12,10,7,0.95) 100%  /* deep vignette at bottom */
+    );
+}</pre>
+  </section>
+
+  <!-- ── NAVIGATION ── -->
+  <section class="ds-section" id="navigation">
+    <p class="section-eyebrow">Components</p>
+    <h2 class="section-title">Navigation</h2>
+    <p class="section-desc">Fixed position. Transparent over the hero, transitions to frosted dark glass on scroll at 80px. Logo left, links right, no hamburger on desktop.</p>
+
+    <div class="token-label">Scrolled State (frosted glass)</div>
+    <div class="nav-demo">
+      <span class="nav-demo-logo">Bar Christina</span>
+      <ul class="nav-demo-links">
+        <li><a href="#">Reservations</a></li>
+        <li><a href="#">Functions</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+
+<pre>/* Default (over hero) */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 28px 60px;
+  transition: background 0.4s ease, padding 0.4s ease;
+  z-index: 100;
+}
+
+/* Scrolled state */
+nav.scrolled {
+  background: rgba(12,10,7,0.92);
+  backdrop-filter: blur(12px);
+  padding: 18px 60px;
+  border-bottom: 1px solid rgba(201,168,76,0.12);
+}
+
+/* Logo */
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 15px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* Links */
+.nav-links a {
+  font-family: var(--sans);
+  font-size: 0.7rem; /* 11.2px */
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(232,224,208,0.65);
+  gap between links: 48px;
+}
+.nav-links a:hover { color: var(--gold); }</pre>
+  </section>
+
+  <!-- ── BUTTONS ── -->
+  <section class="ds-section" id="buttons">
+    <p class="section-eyebrow">Components</p>
+    <h2 class="section-title">Buttons</h2>
+    <p class="section-desc">Three button variants. All use Jost, all uppercase tracked. No border-radius — sharp corners only.</p>
+
+    <div class="component-row">
+      <button class="btn-gold">Reserve a Table</button>
+      <button class="btn-outline">Learn More</button>
+      <a href="#" class="btn-ghost">Meet the team →</a>
+    </div>
+
+<pre>/* 1. Gold (primary CTA) */
+.btn-gold {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink);          /* dark text on gold */
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 14px 36px;
+}
+.btn-gold:hover { opacity: 0.82; }
+
+/* 2. Outline (secondary CTA) */
+.btn-outline {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--parchment);
+  border: 1px solid rgba(232,224,208,0.35);
+  padding: 14px 36px;
+  background: none;
+}
+.btn-outline:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* 3. Ghost text link (inline CTAs) */
+.btn-ghost {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border-bottom: 1px solid rgba(201,168,76,0.35);
+  padding-bottom: 2px;
+  background: none;
+  border-top: none; border-left: none; border-right: none;
+}
+.btn-ghost:hover { border-color: var(--gold); }</pre>
+  </section>
+
+  <!-- ── SECTION LABELS ── -->
+  <section class="ds-section" id="labels">
+    <p class="section-eyebrow">Components</p>
+    <h2 class="section-title">Section Labels</h2>
+    <p class="section-desc">Every section opens with a small uppercase label in gold, followed by a short gold rule. Used to orient the reader without disrupting the visual flow.</p>
+
+    <div class="component-row dark-bg">
+      <div class="section-label-demo">Our Story</div>
+    </div>
+    <div class="component-row dark-bg">
+      <div class="section-label-demo">Private Functions</div>
+    </div>
+
+<pre>.section-label {
+  font-family: var(--sans);
+  font-size: 0.6rem;      /* ~9.6px */
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+/* Trailing gold rule via pseudo-element */
+.section-label::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.5;
+}</pre>
+  </section>
+
+  <!-- ── OFFER CARDS ── -->
+  <section class="ds-section" id="cards">
+    <p class="section-eyebrow">Components</p>
+    <h2 class="section-title">Offer Cards</h2>
+    <p class="section-desc">Three-column grid, no border-radius, separated by 1px gold-tinted gaps. The ghost numeral behind each card adds depth without competing with content.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.1);margin-bottom:24px">
+      <div class="offer-card-demo">
+        <div class="offer-num-demo">01</div>
+        <h3 class="offer-card-title-demo">The Drinks</h3>
+        <p class="offer-card-body-demo">An extensive, hand-curated wine list. Craft cocktails and Japanese beer on tap.</p>
+      </div>
+      <div class="offer-card-demo">
+        <div class="offer-num-demo">02</div>
+        <h3 class="offer-card-title-demo">The Food</h3>
+        <p class="offer-card-body-demo">Bar snacks done right — grazing boards, roasted peppers, DiPalmas pizza.</p>
+      </div>
+      <div class="offer-card-demo">
+        <div class="offer-num-demo">03</div>
+        <h3 class="offer-card-title-demo">The Space</h3>
+        <p class="offer-card-body-demo">Cosy indoor seating and a sunny dog-friendly courtyard garden.</p>
+      </div>
+    </div>
+
+<pre>/* Card grid container */
+.offer-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;                              /* 1px gap = gold line shows through */
+  background: rgba(201,168,76,0.1);     /* the "gap" is actually the bg showing */
+  border: 1px solid rgba(201,168,76,0.1);
+}
+
+/* Individual card */
+.offer-card {
+  background: var(--warm-dark);
+  padding: 52px 44px;
+  transition: background 0.3s;
+}
+.offer-card:hover { background: #1a160e; }
+
+/* Ghost numeral */
+.offer-num {
+  font-family: var(--serif);
+  font-size: 64px;
+  font-style: italic;
+  color: rgba(201,168,76,0.12);   /* barely visible gold ghost */
+  line-height: 1;
+  margin-bottom: 28px;
+}
+
+/* Card title */
+.offer-card-title {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 400;           /* upright, not italic */
+  color: var(--parchment);
+  margin-bottom: 16px;
+}
+
+/* Card body */
+.offer-card-body {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.8;
+}</pre>
+  </section>
+
+  <!-- ── STATS ── -->
+  <section class="ds-section" id="stats">
+    <p class="section-eyebrow">Components</p>
+    <h2 class="section-title">Stat Blocks</h2>
+    <p class="section-desc">Large Bodoni numerals in gold, paired with a small sans-serif label. Separated by 8% opacity gold rules. Used for capacity figures and key metrics.</p>
+
+    <div style="max-width:400px;margin-bottom:24px">
+      <div class="stat-row-demo"><span class="stat-num-demo">30</span><span class="stat-label-demo">Indoor — Seated</span></div>
+      <div class="stat-row-demo"><span class="stat-num-demo">50</span><span class="stat-label-demo">Indoor — Cocktail Style</span></div>
+      <div class="stat-row-demo" style="border:none"><span class="stat-num-demo">50</span><span class="stat-label-demo">Courtyard — Seated</span></div>
+    </div>
+
+<pre>.stat-row {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(201,168,76,0.08);
+}
+
+.stat-num {
+  font-family: var(--serif);
+  font-size: 48px;
+  font-weight: 400;
+  color: var(--gold);
+  line-height: 1;
+  min-width: 80px;  /* prevents label shift between 1- and 2-digit numbers */
+}
+
+.stat-label {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text-muted);
+}</pre>
+  </section>
+
+  <!-- ── QUOTES ── -->
+  <section class="ds-section" id="quotes">
+    <p class="section-eyebrow">Components</p>
+    <h2 class="section-title">Testimonial Quotes</h2>
+    <p class="section-desc">No star ratings, no card boxes, no avatars. Pure typographic quotes in Bodoni italic with a faded gold opening mark. Attribution in 9px tracked uppercase gold.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:24px">
+      <div class="quote-demo" style="padding-right:48px;border-right:1px solid var(--gold-line)">
+        <div class="quote-mark-demo">"</div>
+        <p class="quote-text-demo">Hidden in plain sight — a simple formula that works brilliantly.</p>
+        <p class="quote-attr-demo">Lachlan F. · Local Guide</p>
+      </div>
+      <div class="quote-demo" style="padding-left:48px;padding-top:80px;border-bottom:none">
+        <div class="quote-mark-demo">"</div>
+        <p class="quote-text-demo">Intimate and familiar from the moment you walk in.</p>
+        <p class="quote-attr-demo">Madeleine B.</p>
+      </div>
+    </div>
+
+<pre>/* Grid: 2 columns, staggered — odd items start at baseline,
+   even items have padding-top: 100px for visual rhythm */
+.quote-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.quote-item {
+  padding: 52px 0;
+  border-bottom: 1px solid rgba(201,168,76,0.1);
+}
+.quote-item:nth-child(odd)  { padding-right: 80px; border-right: 1px solid rgba(201,168,76,0.1); }
+.quote-item:nth-child(even) { padding-left: 80px; }
+.quote-item.offset          { padding-top: 100px; } /* stagger even items */
+
+/* Opening mark */
+.quote-mark {
+  font-family: var(--serif);
+  font-size: 64px;
+  color: var(--gold);
+  opacity: 0.35;
+  line-height: 0.5;
+  margin-bottom: 20px;
+}
+
+/* Quote text */
+.quote-text {
+  font-family: var(--serif);
+  font-size: clamp(18px, 2vw, 24px);
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--parchment);
+  margin-bottom: 20px;
+}
+
+/* Attribution */
+.quote-attr {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.65;
+}</pre>
+  </section>
+
+  <!-- ── HOURS ── -->
+  <section class="ds-section" id="hours">
+    <p class="section-eyebrow">Components</p>
+    <h2 class="section-title">Hours &amp; Contact</h2>
+    <p class="section-desc">Two sub-patterns: the hours panel (bordered box with internal row dividers) and the contact block (stacked label/value pairs with gold dividers).</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px">
+      <div class="hours-demo">
+        <p class="hours-note-demo">Current Opening Hours</p>
+        <div class="hours-row-demo"><span class="day-demo">Wed – Thu</span><span class="time-demo">4:00 pm – 9:00 pm</span></div>
+        <div class="hours-row-demo"><span class="day-demo">Fri – Sat</span><span class="time-demo">1:00 pm – 10:30 pm</span></div>
+        <div class="hours-row-demo" style="border:none"><span class="day-demo">Sunday</span><span class="time-demo">3:00 pm – 7:00 pm</span></div>
+      </div>
+      <div class="contact-demo">
+        <div class="contact-block-demo">
+          <p class="contact-block-label-demo">Address</p>
+          <p class="contact-block-value-demo">663 High Street<br>Kew East, VIC 3102</p>
+        </div>
+        <div class="contact-block-demo" style="border:none">
+          <p class="contact-block-label-demo">Phone</p>
+          <p class="contact-block-value-demo">0423 481 755</p>
+        </div>
+      </div>
+    </div>
+
+<pre>/* Hours label above rows */
+.hours-note {
+  font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 24px; padding-bottom: 24px;
+  border-bottom: 1px solid rgba(201,168,76,0.08);
+}
+
+/* Hours row */
+.hours-row {
+  display: flex; justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(201,168,76,0.06);
+}
+.hours-row .day  { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); }
+.hours-row .time { font-size: 13px; color: var(--parchment); }
+
+/* Contact block section */
+.contact-section { padding: 28px 0; border-bottom: 1px solid rgba(201,168,76,0.08); }
+.contact-section-label {
+  font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: rgba(201,168,76,0.45); margin-bottom: 12px;
+}
+.contact-value { font-size: 14px; color: rgba(232,224,208,0.7); line-height: 1.7; }</pre>
+  </section>
+
+  <!-- ── PRICING ── -->
+  <section class="ds-section" id="pricing">
+    <p class="section-eyebrow">Components</p>
+    <h2 class="section-title">Pricing Tiers</h2>
+    <p class="section-desc">Three-column grid using the same 1px gold-gap technique as offer cards. The middle/featured tier has a slightly lighter background and gold-coloured text. No other visual difference — restraint is key.</p>
+
+    <div class="tiers-demo">
+      <div class="tier-demo">
+        <p class="tier-dur-demo">2 Hours</p>
+        <p class="tier-price-demo"><sup>$</sup>49</p>
+        <p class="tier-pp-demo">per person</p>
+      </div>
+      <div class="tier-demo featured">
+        <p class="tier-dur-demo gold">3 Hours</p>
+        <p class="tier-price-demo gold"><sup>$</sup>65</p>
+        <p class="tier-pp-demo">per person</p>
+      </div>
+      <div class="tier-demo">
+        <p class="tier-dur-demo">4 Hours</p>
+        <p class="tier-price-demo"><sup>$</sup>75</p>
+        <p class="tier-pp-demo">per person</p>
+      </div>
+    </div>
+    <p style="font-size:11px;color:var(--text-dim);letter-spacing:0.08em;line-height:1.8;margin-bottom:24px">Includes 2 whites · 2 reds · sparkling · rosé · Orion on tap · Peroni Red</p>
+
+<pre>/* Container — same 1px gap technique as offer cards */
+.drink-tiers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.1);
+}
+
+/* Tier */
+.drink-tier { background: #0f0d09; padding: 28px 24px; text-align: center; }
+.drink-tier.featured {
+  background: #131009;
+  border-left:  1px solid rgba(201,168,76,0.15);
+  border-right: 1px solid rgba(201,168,76,0.15);
+}
+
+.tier-duration { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-dim); }
+.tier-duration.gold { color: var(--gold); }
+
+.tier-price { font-family: var(--serif); font-size: 36px; color: var(--parchment); }
+.tier-price.gold { color: var(--gold); }
+.tier-price sup { font-size: 16px; vertical-align: top; margin-top: 8px; display: inline-block; }
+
+.tier-pp { font-size: 9px; letter-spacing: 0.15em; color: var(--text-dim); margin-top: 6px; }</pre>
+  </section>
+
+  <!-- ── MENU ── -->
+  <section class="ds-section" id="menu">
+    <p class="section-eyebrow">Components</p>
+    <h2 class="section-title">Menu Items</h2>
+    <p class="section-desc">Category header in Bodoni italic, items as flex rows with name left-aligned and price right-aligned in gold. Separated by near-invisible 4% gold rules.</p>
+
+    <div style="max-width:480px;margin-bottom:24px">
+      <div class="menu-category-demo">Grazing &amp; Sharing</div>
+      <div class="menu-item-demo"><span>Giant Grazing &amp; Charcuterie Board</span><span class="menu-price-demo">$30 pp</span></div>
+      <div class="menu-item-demo"><span>Make-Your-Own Bagel Station</span><span class="menu-price-demo">On request</span></div>
+      <div style="margin-top:20px" class="menu-category-demo">Canapés</div>
+      <div class="menu-item-demo"><span>Choose 5</span><span class="menu-price-demo">$40 pp</span></div>
+      <div class="menu-item-demo"><span>Choose 6</span><span class="menu-price-demo">$50 pp</span></div>
+    </div>
+
+<pre>.menu-category {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-style: italic;
+  color: var(--parchment);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 8px 0;
+  font-size: 13px;
+  color: var(--text-muted);
+  border-bottom: 1px solid rgba(201,168,76,0.04);
+}
+
+.menu-item .price {
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}</pre>
+  </section>
+
+  <!-- ── MARQUEE ── -->
+  <section class="ds-section" id="marquee">
+    <p class="section-eyebrow">Components</p>
+    <h2 class="section-title">Marquee Ticker</h2>
+    <p class="section-desc">Sits at the base of the hero. Slow 30s loop. Gold diamond separators between items. Text at 45% opacity — present but never competing.</p>
+
+    <div class="marquee-demo">
+      <div class="marquee-inner">
+        <span>663 High Street<span class="sep">◆</span>Kew East<span class="sep">◆</span>Wed–Thu 4pm–9pm<span class="sep">◆</span>Fri–Sat 1pm–10:30pm<span class="sep">◆</span>Sun 3pm–7pm<span class="sep">◆</span>0423 481 755<span class="sep">◆</span>@bar_christina_<span class="sep">◆</span></span>
+        <span>663 High Street<span class="sep">◆</span>Kew East<span class="sep">◆</span>Wed–Thu 4pm–9pm<span class="sep">◆</span>Fri–Sat 1pm–10:30pm<span class="sep">◆</span>Sun 3pm–7pm<span class="sep">◆</span>0423 481 755<span class="sep">◆</span>@bar_christina_<span class="sep">◆</span></span>
+      </div>
+    </div>
+
+<pre>/* Wrapper */
+.marquee-wrap {
+  overflow: hidden;
+  border-top: 1px solid rgba(201,168,76,0.15);
+  padding: 14px 0;
+  background: rgba(12,10,7,0.5);
+  backdrop-filter: blur(4px);
+}
+
+/* Track — duplicate content twice for seamless loop */
+.marquee-track {
+  display: flex;
+  white-space: nowrap;
+  animation: marquee 30s linear infinite;
+}
+
+/* Text */
+.marquee-track span {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(232,224,208,0.45);
+  padding-right: 80px; /* gap at end of each copy */
+}
+
+/* Separator diamond */
+.marquee-track span .sep {
+  color: var(--gold);
+  margin: 0 20px;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* HTML structure: content duplicated exactly once */
+&lt;div class="marquee-track"&gt;
+  &lt;span&gt;663 High Street &lt;span class="sep"&gt;◆&lt;/span&gt; Kew East ...&lt;/span&gt;
+  &lt;span&gt;663 High Street &lt;span class="sep"&gt;◆&lt;/span&gt; Kew East ...&lt;/span&gt;
+&lt;/div&gt;</pre>
+  </section>
+
+  <!-- ── LAYOUT ── -->
+  <section class="ds-section" id="layout">
+    <p class="section-eyebrow">Layout</p>
+    <h2 class="section-title">Page Structure</h2>
+    <p class="section-desc">The page alternates between two background colours — <code>--ink</code> and <code>--warm-dark</code> — to create visual rhythm without borders or shadows. Section order is fixed.</p>
+
+    <div class="token-label">Section Sequence</div>
+    <div class="layout-diagram">
+      <div class="layout-row"><div class="layout-block" style="flex:1;height:36px">Nav — fixed, full-width</div></div>
+      <div class="layout-row"><div class="layout-block bg-accent" style="flex:1;height:56px">Hero — 100vh · background: --ink</div></div>
+      <div class="layout-row"><div class="layout-block" style="flex:1;height:36px">About — 140px padding · background: --ink</div></div>
+      <div class="layout-row"><div class="layout-block bg-accent" style="flex:1;height:36px">Offer — 120px padding · background: --warm-dark</div></div>
+      <div class="layout-row"><div class="layout-block" style="flex:1;height:36px">Reservations — 140px padding · background: --ink</div></div>
+      <div class="layout-row"><div class="layout-block bg-accent" style="flex:1;height:36px">Events / Functions — 120px padding · background: --warm-dark</div></div>
+      <div class="layout-row"><div class="layout-block" style="flex:1;height:36px">Testimonials — 140px padding · background: --ink</div></div>
+      <div class="layout-row"><div class="layout-block bg-accent" style="flex:1;height:36px">Find Us — 120px padding · background: --warm-dark</div></div>
+      <div class="layout-row"><div class="layout-block" style="flex:1;height:32px">Footer — 32px padding · background: --ink</div></div>
+    </div>
+  </section>
+
+  <!-- ── SECTION PATTERNS ── -->
+  <section class="ds-section" id="sections">
+    <p class="section-eyebrow">Layout</p>
+    <h2 class="section-title">Section Patterns</h2>
+    <p class="section-desc">Each section opens with the same three-element sequence: section label → gold rule → heading. The inner content then varies by section type.</p>
+
+    <div class="token-label">Standard Section Opening</div>
+<pre>&lt;section&gt;
+  &lt;div class="section-inner"&gt; &lt;!-- max-width: 1300px; margin: 0 auto; padding: 0 60px --&gt;
+
+    &lt;div class="section-label"&gt;Section Name&lt;/div&gt;  &lt;!-- gold tracked caps + rule --&gt;
+    &lt;div class="gold-rule"&gt;&lt;/div&gt;                   &lt;!-- 48px gold line (optional) --&gt;
+    &lt;h2 class="section-title"&gt;Italic Bodoni heading&lt;/h2&gt;
+
+    &lt;!-- section content --&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</pre>
+
+    <div class="token-label">Two-Column Pattern (About, Find Us)</div>
+<pre>.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px–100px;  /* generous gap */
+  align-items: center;
+}</pre>
+
+    <div class="token-label">Hero Full-Width Banner Pattern (Events)</div>
+<pre>.events-hero-img {
+  width: 100%;
+  height: 360px;
+  display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(ellipse at 50% 40%, rgba(201,168,76,0.1) 0%, transparent 60%),
+              linear-gradient(135deg, #1e1709 0%, #0c0a07 100%);
+  border: 1px solid var(--gold-line);
+  /* Headline sits centred, overlaid */
+}</pre>
+  </section>
+
+  <!-- ── GRID ── -->
+  <section class="ds-section" id="grid">
+    <p class="section-eyebrow">Layout</p>
+    <h2 class="section-title">Grid System</h2>
+
+    <table class="responsive-table">
+      <tr><th>Pattern</th><th>CSS</th><th>Used In</th></tr>
+      <tr><td>2-col equal</td><td><code>grid-template-columns: 1fr 1fr; gap: 80px</code></td><td>About, Reservations, Events, Find Us</td></tr>
+      <tr><td>3-col equal</td><td><code>grid-template-columns: repeat(3, 1fr); gap: 1px</code></td><td>Offer cards, Pricing tiers</td></tr>
+      <tr><td>2-col events</td><td><code>grid-template-columns: 1fr 1fr; gap: 80px</code></td><td>Events (capacity + menu)</td></tr>
+      <tr><td>Quote grid</td><td><code>grid-template-columns: 1fr 1fr; gap: 0</code></td><td>Testimonials (borders as gaps)</td></tr>
+      <tr><td>Max content width</td><td><code>max-width: 1300px; margin: 0 auto; padding: 0 60px</code></td><td>All inner containers</td></tr>
+      <tr><td>Horizontal padding</td><td><code>60px</code></td><td>All sections</td></tr>
+    </table>
+  </section>
+
+  <!-- ── DECORATIVE ELEMENTS ── -->
+  <section class="ds-section" id="icons">
+    <p class="section-eyebrow">Reference</p>
+    <h2 class="section-title">Decorative Elements</h2>
+    <p class="section-desc">A small vocabulary of typographic symbols used throughout. No icon library — all characters native to the typefaces.</p>
+
+    <div class="icon-grid">
+      <div class="icon-item"><span class="icon-symbol">◆</span>Gold diamond<br>Marquee separator</div>
+      <div class="icon-item"><span class="icon-symbol">"</span>Open quote mark<br>Testimonials</div>
+      <div class="icon-item"><span class="icon-symbol">→</span>Rightward arrow<br>Ghost link CTAs</div>
+      <div class="icon-item"><span class="icon-symbol">—</span>Em dash<br>Stat label separator</div>
+      <div class="icon-item"><span class="icon-symbol">·</span>Interpunct<br>Attribution separator</div>
+      <div class="icon-item"><span class="icon-symbol">01</span>Ghost numeral<br>Card decoration</div>
+    </div>
+
+    <div class="token-label">Vertical Text Accent (used sparingly on section margins)</div>
+<pre>.vert-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: var(--sans);
+  font-size: 0.58rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.2);
+  transform: rotate(180deg);
+}</pre>
+  </section>
+
+  <!-- ── IMPLEMENTATION ── -->
+  <section class="ds-section" id="implementation">
+    <p class="section-eyebrow">Reference</p>
+    <h2 class="section-title">Implementation Guide</h2>
+    <p class="section-desc">How to apply this design system in different environments.</p>
+
+    <div class="token-label">Webflow / Squarespace / Framer</div>
+    <table class="responsive-table">
+      <tr><th>Token</th><th>Platform Setting</th></tr>
+      <tr><td>--ink</td><td>Global → Colours → "Background Primary" = <code>#0c0a07</code></td></tr>
+      <tr><td>--warm-dark</td><td>Global → Colours → "Background Secondary" = <code>#131009</code></td></tr>
+      <tr><td>--parchment</td><td>Global → Colours → "Text Primary" = <code>#e8e0d0</code></td></tr>
+      <tr><td>--gold</td><td>Global → Colours → "Accent" = <code>#c9a84c</code></td></tr>
+      <tr><td>--serif</td><td>Typography → Heading Font = Bodoni Moda (Google Fonts)</td></tr>
+      <tr><td>--sans</td><td>Typography → Body Font = Jost (Google Fonts), Weight 300</td></tr>
+      <tr><td>Section padding</td><td>Spacing → Section Padding = 120px top/bottom</td></tr>
+      <tr><td>Container width</td><td>Layout → Max Width = 1300px</td></tr>
+      <tr><td>Border radius</td><td>Global → Border Radius = 0 (no rounding anywhere)</td></tr>
+    </table>
+
+    <div class="token-label">Tailwind CSS Config</div>
+<pre>// tailwind.config.js
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        ink:       '#0c0a07',
+        'warm-dark': '#131009',
+        mid:       '#1e1a12',
+        parchment: '#e8e0d0',
+        gold:      '#c9a84c',
+      },
+      fontFamily: {
+        serif: ['"Bodoni Moda"', 'Georgia', 'serif'],
+        sans:  ['Jost', 'sans-serif'],
+      },
+      maxWidth: { content: '1300px' },
+      letterSpacing: {
+        widest:  '0.35em',
+        wide:    '0.28em',
+        tracked: '0.22em',
+        caps:    '0.15em',
+      },
+    },
+  },
+}</pre>
+
+    <div class="token-label">Do / Don't Rules</div>
+    <table class="responsive-table">
+      <tr><th>✓ Do</th><th>✗ Don't</th></tr>
+      <tr><td>Use italic Bodoni for all section headings</td><td>Use upright Bodoni for section headings (except H3/cards)</td></tr>
+      <tr><td>Use gold sparingly — labels, prices, stat numbers</td><td>Use gold as a fill colour on large areas</td></tr>
+      <tr><td>Keep borders 1px and gold-tinted</td><td>Use box-shadows or drop-shadows</td></tr>
+      <tr><td>Use 0px border-radius (sharp corners)</td><td>Round any corners</td></tr>
+      <tr><td>Alternate --ink / --warm-dark for sections</td><td>Use solid white, grey, or unrelated colours</td></tr>
+      <tr><td>Apply grain overlay at opacity 0.035</td><td>Increase grain opacity above 0.05</td></tr>
+      <tr><td>Use Jost at weight 300 for body copy</td><td>Use weight 400+ for body — too heavy</td></tr>
+      <tr><td>Track nav/label/button text at 0.22–0.35em</td><td>Use normal letter-spacing on UI text</td></tr>
+      <tr><td>Add scroll reveals with stagger delays</td><td>Animate all elements simultaneously</td></tr>
+    </table>
+  </section>
+
+</main>
+</div>
+
+<script>
+// Sidebar active state on scroll
+const sections = document.querySelectorAll('.ds-section[id]');
+const navLinks  = document.querySelectorAll('.nav-group a');
+const observer  = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const match = document.querySelector(`.nav-group a[href="#${e.target.id}"]`);
+      if (match) match.classList.add('active');
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
+
+// Animation demo
+function triggerDemo() {
+  ['demo1','demo2','demo3','demo4'].forEach(id => {
+    document.getElementById(id).classList.remove('show');
+  });
+  setTimeout(() => {
+    ['demo1','demo2','demo3','demo4'].forEach(id => {
+      document.getElementById(id).classList.add('show');
+    });
+  }, 50);
+}
+// Auto-trigger on load
+setTimeout(triggerDemo, 600);
+</script>
+</body>
+</html>
