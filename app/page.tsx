@@ -463,7 +463,8 @@ export default function Home() {
         <a href="https://instagram.com/bar_christina_" target="_blank" rel="noreferrer">
           Instagram
         </a>
-        <span className="footerCopy">© Bar Christina 2025 · Kew East</span>
+        <span className="footerCopy">© Bar Christina {new Date().getFullYear()} · Kew East</span>
+        <span className="footerCopy">Developed by Vanguard Creative</span>
       </footer>
     </div>
   );
