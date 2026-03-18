@@ -1,5 +1,5 @@
 :root {
-  --ink: #0a0906;
+  --ink: #0c0a07;
   --parchment: #e8e0d0;
   --gold: #c9a84c;
   --gold-dim: rgba(201, 168, 76, 0.25);
@@ -94,7 +94,7 @@ a {
 }
 
 .siteNav.is-scrolled {
-  background: rgba(10, 9, 6, 0.92);
+  background: rgba(12, 10, 7, 0.92);
   backdrop-filter: blur(12px);
   padding: 18px 60px;
   border-bottom: 1px solid rgba(201, 168, 76, 0.12);
@@ -137,7 +137,22 @@ a {
 .heroImgPlaceholder {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 40% 50%, #2a1f0a 0%, #0a0906 70%);
+  overflow: hidden;
+}
+
+.heroSlide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: opacity 1.2s ease-in-out;
+  will-change: opacity;
+}
+
+.heroSlide.is-active {
+  opacity: 1;
 }
 
 .heroImgPlaceholder::before {
@@ -149,6 +164,7 @@ a {
   left: 30%;
   background: radial-gradient(circle, rgba(201, 168, 76, 0.12) 0%, transparent 70%);
   animation: glow-pulse 6s ease-in-out infinite;
+  z-index: 1;
 }
 
 .heroImgPlaceholder::after {
@@ -160,6 +176,7 @@ a {
   left: 45%;
   background: linear-gradient(180deg, transparent, rgba(201, 168, 76, 0.04), transparent);
   animation: glow-pulse 8s ease-in-out 2s infinite;
+  z-index: 1;
 }
 
 .heroBg {
@@ -270,7 +287,7 @@ a {
   overflow: hidden;
   border-top: 1px solid rgba(201, 168, 76, 0.15);
   padding: 14px 0;
-  background: rgba(10, 9, 6, 0.5);
+  background: rgba(12, 10, 7, 0.5);
   backdrop-filter: blur(4px);
 }
 
@@ -340,10 +357,32 @@ a {
 .aboutImg {
   width: 100%;
   aspect-ratio: 3 / 4;
+  /* background-image:
+    linear-gradient(rgba(10, 9, 6, 0.3), rgba(10, 9, 6, 0.3)),
+    url("/images/2.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; */
   background:
     radial-gradient(ellipse at 40% 30%, rgba(201, 168, 76, 0.15) 0%, transparent 60%),
-    linear-gradient(135deg, #1a1408 0%, #0a0906 100%);
+    linear-gradient(135deg, #1a1408 0%, #0c0a07 100%);
   border: 1px solid rgba(201, 168, 76, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.aboutImg::before {
+  content: "Photography\AComming Soon";
+  white-space: pre;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(232, 224, 208, 0.15);
 }
 
 .aboutImgFloat {
@@ -352,6 +391,12 @@ a {
   right: -30px;
   width: 55%;
   aspect-ratio: 1;
+  /* background-image:
+    linear-gradient(rgba(10, 9, 6, 0.25), rgba(10, 9, 6, 0.25)),
+    url("/images/3.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; */
   background:
     radial-gradient(ellipse at 60% 40%, rgba(201, 168, 76, 0.2) 0%, transparent 60%),
     linear-gradient(135deg, #211a0d 0%, #131009 100%);
@@ -546,9 +591,15 @@ a {
 .eventsHeroImg {
   width: 100%;
   height: 360px;
+  /* background-image:
+    linear-gradient(rgba(10, 9, 6, 0.45), rgba(10, 9, 6, 0.45)),
+    url("/images/4.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; */
   background:
     radial-gradient(ellipse at 50% 40%, rgba(201, 168, 76, 0.1) 0%, transparent 60%),
-    linear-gradient(135deg, #1e1709 0%, #0a0906 100%);
+    linear-gradient(135deg, #1e1709 0%, #0c0a07 100%);
   border: 1px solid rgba(201, 168, 76, 0.1);
   display: flex;
   align-items: center;
@@ -815,7 +866,13 @@ a {
 
 .mapPlaceholder {
   aspect-ratio: 4 / 3;
-  background: linear-gradient(135deg, #141109 0%, #0a0906 100%);
+  /* background-image:
+    linear-gradient(rgba(10, 9, 6, 0.35), rgba(10, 9, 6, 0.35)),
+    url("/images/5.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; */
+  background: linear-gradient(135deg, #141109 0%, #0c0a07 100%);
   border: 1px solid rgba(201, 168, 76, 0.12);
   display: flex;
   align-items: center;

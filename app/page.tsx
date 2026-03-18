@@ -23,8 +23,11 @@ const testimonials = [
   },
 ];
 
+const heroImageNumbers = [3, 5, 8, 11];
+
 export default function Home() {
   const [navScrolled, setNavScrolled] = useState(false);
+  const [activeHeroIndex, setActiveHeroIndex] = useState(0);
   const cursorRef = useRef<HTMLDivElement>(null);
   const cursorXRef = useRef(0);
   const cursorYRef = useRef(0);
@@ -96,6 +99,14 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setActiveHeroIndex((currentIndex) => (currentIndex + 1) % heroImageNumbers.length);
+    }, 5000);
+
+    return () => window.clearInterval(intervalId);
+  }, []);
+
   return (
     <div>
       <div id="cursor" ref={cursorRef} />
@@ -111,7 +122,17 @@ export default function Home() {
 
       <main>
         <section id="home" className="hero">
-          <div className="heroImgPlaceholder" />
+          <div className="heroImgPlaceholder" aria-hidden="true">
+            {heroImageNumbers.map((imageNumber, index) => (
+              <div
+                key={imageNumber}
+                className={`heroSlide ${index === activeHeroIndex ? "is-active" : ""}`}
+                style={{
+                  backgroundImage: `linear-gradient(rgba(10, 9, 6, 0.35), rgba(10, 9, 6, 0.35)), url("/images/${imageNumber}.jpg")`,
+                }}
+              />
+            ))}
+          </div>
           <div className="heroBg" />
           <div className="heroInner">
             <p className="heroEyebrow">663 High Street - Kew East</p>
